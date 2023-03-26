@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <title>Omni-AI</title>
+</head>
+
+<body>
+    <h1>Omni-AI</h1>
+    <h2>An AI easier to use (Support picture creations currently)</h2>
+    <form class="form">
+        <label for="user_input">Query:</label>
+        <textarea type="text" id="user_input" name="user_input" style="width:50%;font-size:14pt;" rows="10" cols="120"
+            placeholder="What would you like to do?">I'd like to furnish a bedroom. Please suggest me some popular furniture. Then show me one photo of the bedroom furnished with these furniture.</textarea>
+        <button type="submit" id="btn_submit">Submit</button>
+    </form>
+    <div>
+        <label for="ta_output">Omni_AI Output:</label>
+        <textarea id="ta_output" rows="30" cols="120" style="width:50%;font-size:14pt;"></textarea>
+    </div>
+
+    <script>
+        const formEl = document.querySelector('.form');
+        formEl.addEventListener('submit', event => {
+            event.preventDefault();
+
+            // Disable the submit button
+            let btn_output = document.getElementById('btn_submit');
+            btn_output.disabled = true;
+
+            // Process request and response to the Omni-AI web service
+            const formData = new FormData(formEl);
+            const data = Object.fromEntries(formData);
+            fetch('http://localhost:3000/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify(data)
+            }).then((response) => response.json())
+                .then((data) => {
+
+                    let ta_output = document.getElementById('ta_output');
+
+                    // Format output
+                    let final_output = '';
+                    let int_output_ctr = 1;
+                    {
+                        for (const str of data.outputs) {
+                            final_output += '[Output ' + int_output_ctr.toString() + ']\n';
+                            final_output += str + '\n\n\n';
+
+                            int_output_ctr++;
+                        }
+                    }
+
+                    ta_output.value = final_output;
+
+                    // Enable the submit button
+                    let btn_output = document.getElementById('btn_submit');
+                    btn_output.disabled = false;
+                });
+
+        }
+        );
+    </script>
+
+    <h3 style="color:red;">
+        Limitations: <br> 
+        (1) SLOW. It takes ~40s to generate a story and one picture. <br> 
+        (2) BUGGY. I'll improve the backend with my best effort!
+    </h3>
+</body>
+
+</html>
