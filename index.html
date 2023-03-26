@@ -6,8 +6,8 @@
 </head>
 
 <body>
-    <h1>Omni-AI</h1>
-    <h2>An AI easier to use (Support picture creations currently)</h2>
+    <h1>Omni-AI: Easiest & Best</h1>
+    <h3>(Limitation: Support picture creations only at current)</h3>
     <form class="form">
         <label for="user_input">Query:</label>
         <textarea type="text" id="user_input" name="user_input" style="width:50%;font-size:14pt;" rows="10" cols="120"
@@ -61,6 +61,43 @@
                     btn_output.disabled = false;
                 });
 
+
+
+
+            // Output chatgpt's result to the Omni-AI web service
+            fetch('http://localhost:3000/query_chatgpt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify(data)
+            }).then((response) => response.json())
+                .then((data) => {
+
+                    let chatgpt_output = document.getElementById('chatgpt_output');
+
+                    // Format output
+                    chatgpt_output.value = data.outputs[0];;
+                });
+
+
+
+            // Output chatgpt's result to the Omni-AI web service
+            fetch('http://localhost:3000/query_dalle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain'
+                },
+                body: JSON.stringify(data)
+            }).then((response) => response.json())
+                .then((data) => {
+
+                    let dalle_output = document.getElementById('dalle_output');
+
+                    // Format output
+                    dalle_output.src = data.outputs[0];
+                });
+
         }
         );
     </script>
@@ -70,6 +107,16 @@
         (1) SLOW. It takes ~40s to generate a story and one picture. <br> 
         (2) BUGGY. I'll improve the backend with my best effort!
     </h3>
+
+
+    <div>
+        <label for="chatgpt_output">ChatGPT-3.5 Output:</label>
+        <textarea id="chatgpt_output" rows="30" cols="120" style="width:50%;font-size:14pt;"></textarea>
+    </div>
+    <div>
+        <label for="dalle_output">DALLE Output:</label>
+        <img id="dalle_output" width="500" height="600">
+    </div>
 </body>
 
 </html>
