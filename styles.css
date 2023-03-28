@@ -53,7 +53,7 @@ button {
 }
 
 .input-row {
-    height: 20%;
+    height: 45%;
     align-items: center;
     text-align: center;
     padding: 20px 0;
@@ -100,4 +100,8 @@ p {
 .right-image {
     max-width: 100%;
     height: auto;
+}
+
+.page2-title {
+    height:10%;
 }

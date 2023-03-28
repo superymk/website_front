@@ -18,26 +18,33 @@
             </div>
             <div class="input-row">
                 <label style="font-size:16pt;">Input configurations and your goals below:</label>
-                <form class="form" >
+                <form class="form" id="user_input_form" >
                     <div class="input-with-prompt">
-                        <p>OpenAI API Key (see <a href="">aaa</a> for help):</p>
-                        <textarea type="text" id="openai_api_key" name="openai_api_key" style="font-size:12pt; width:50%; max-width:100%;" rows="1" placeholder="Paste OpenAI API Key here"></textarea>
+                        <p>OpenAI API Key (see the <a href="https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key">link</a> for help):</p>
+                        <textarea type="text" id="openai_api_key" name="openai_api_key" style="font-size:12pt; width:60%; max-width:100%;" rows="1" placeholder="Paste OpenAI API Key here"></textarea>
                     </div>
                     <div class="input-with-prompt">
-                        <p>Replicate API Key (see <a href="">aaa</a> for help):</p>
-                        <textarea type="text" id="replicate_api_key" name="replicate_api_key" style="font-size:12pt; width:50%; max-width:100%;" rows="1" placeholder="Paste Replicate API Key here"></textarea>
+                        <p>Replicate API Key (see the <a href="https://replicate.com/users/superymk/account">link</a> for help):</p>
+                        <textarea type="text" id="replicate_api_key" name="replicate_api_key" style="font-size:12pt; width:60%; max-width:100%;" rows="1" placeholder="Paste Replicate API Key here"></textarea>
                     </div>
                     <div class="input-with-prompt">
                         <p>What do you want to do:</p>
-                        <textarea type="text" id="user_input" name="user_input" style="font-size:12pt; width:50%; max-width:100%;" rows="4"
+                        <textarea type="text" id="user_input" name="user_input" style="font-size:12pt; width:60%; max-width:100%;" rows="6"
                             placeholder="What would you like to do?">I'd like to furnish a bedroom. Please suggest me some popular furniture. Then show me one photo of the bedroom furnished with these furniture.</textarea>
                     </div>
+                    <button type="submit" id="btn_submit" style="width: 100px;">Submit</button>
                 </form>
-                <button type="submit" id="btn_submit" style="width: 100px;">Submit</button>
+                <h3 style="color:#000000;text-align: left;">
+                    Examples of queries: <br>
+                    (1) Generate a paragraph of a beautiful Chinese female human with four sentences only. After that, generate a photo of the female based on the paragraph. <br>
+                    (2) Describe a beautiful female with four sentences. After that, generate a photo of the female based on the text. <br>
+                    (3) I'd like to furnish a bedroom. Please suggest me some popular furniture. Then show me one photo of the room furnished with these furniture. <br>
+                    (4) Generate a story of two cartoon characters Tom and Jerry. Then summarize the story into four sentences. Then generate a photo of Tom and Jerry based on the summarization. <br>
+                </h3>
             </div>
             <div class="output-row">
                 <label for="ta_output" style="font-size:16pt;">Omni_AI Output:</label>
-                <textarea id="ta_output" style="font-size:12pt; width:50%; max-width:100%;" rows="10" readonly></textarea>
+                <textarea id="ta_output" style="font-size:12pt; width:70%; max-width:100%;" rows="15" readonly></textarea>
             </div>
             <div class="row">
                 <h3 style="color:red;">
@@ -48,12 +55,15 @@
             </div>
         </div>
         <div class="page2">
+            <div class="page2-title">
+                <h2>Comparison with Other AIs:</h2>
+            </div>
             <div class="column">
-                <label for="chatgpt_output">ChatGPT-3.5 Output:</label>
+                <label for="chatgpt_output" style="font-size:16pt;">ChatGPT-3.5 Output:</label>
                 <textarea id="chatgpt_output" style="font-size:12pt; width:100%; max-width:100%; height:50%;"></textarea>
             </div>
             <div class="column">
-                <label for="dalle_output">DALLE-API (not website) Output:</label>
+                <label for="dalle_output" style="font-size:16pt;">DALLE-API (not website) Output:</label>
                 <img id="dalle_output" class="middle-image">
             </div>
             <!-- <div class="column">
@@ -64,7 +74,8 @@
 
 
     <script>
-        const formEl = document.querySelector('.form');
+        // const formEl = document.querySelector('.form');
+        const formEl = document.getElementById('user_input_form');
         formEl.addEventListener('submit', event => {
             event.preventDefault();
 
